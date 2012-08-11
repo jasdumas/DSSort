@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 
 public class LabFour {
@@ -23,6 +24,9 @@ public class LabFour {
 		Date				date;
 		String				startTime;
 		String				endTime;
+		int					number;
+		int					index;
+		int[]				values;
 		
 		lab = new LabFour();
 		dateFormat = new SimpleDateFormat("HH:mm:ss:SSS");
@@ -44,13 +48,52 @@ public class LabFour {
             return;
         }
         
+        // start with the first integer in the file
         z = lab.readInput(input);
+        
+        // determine the size of the array based on the number of integers in the input file
+        index = 0;
+        while (z != null) {
+        	
+        	index++;
+        	z = lab.readInput(input);
+        }
+        
+        System.out.println("There are " + index + " integers in the input file.");
+        
+        
+		//  Open the input file again to begin processing.
+        try {
+           input = new BufferedReader(new FileReader(args[0]));
+        } catch (Exception exception) {
+            System.err.println(exception.toString());
+            return;
+        }
+        
+        // store the input for processing
+        number = 0;
+        values = new int[index];    	
+        for (int i = 0; i < index; i++) {
+        	
+        	z = lab.readInput(input);
+        	
+        	if (z == null)
+        		break;
+        	else
+        		number = Integer.parseInt(z);
+        		values[i] = number;
+        }
+        
+        //what does the array look like?
+        System.out.println(Arrays.toString(values));
+        System.out.println(values.length);
         
         
         // store the time just before the sort begins
         startTime = dateFormat.format(date);
         
-        
+        //lets start sorting!
+        //Heap Sort is up first
         System.out.println("Test");
 		
         
